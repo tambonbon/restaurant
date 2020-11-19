@@ -1,20 +1,20 @@
 import Ingredients.{Carrot, ChickenLeg, Rice}
 
 import scala.reflect.runtime.universe._
-class Supplier {
-  val kitchen = new Kitchen
+class Supplier (kitchen: Kitchen) {
+//  val kitchen = new Kitchen
   def supply[A: TypeTag](amount: Int) = typeOf[A] match {
     case x if x =:= typeOf[Carrot.type] => {
       val temp: Seq[Carrot.type] = Seq.fill(amount)(kitchen.carrot)
-      kitchen.carrotSeq ++:  temp
+      kitchen.carrotSeq = kitchen.carrotSeq ++  temp
     }
     case x if x =:= typeOf[ChickenLeg.type] => {
       val temp: Seq[ChickenLeg.type] = Seq.fill(amount)(kitchen.chickenLeg)
-      kitchen.chickenSeq ++ temp
+      kitchen.chickenSeq = kitchen.chickenSeq ++ temp
     }
     case x if x =:= typeOf[Rice.type] => {
       val temp: Seq[Rice.type] = Seq.fill(amount)(kitchen.rice)
-      kitchen.riceSeq ++ temp
+      kitchen.riceSeq = kitchen.riceSeq ++ temp
     }
   }
 }
