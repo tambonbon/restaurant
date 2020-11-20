@@ -1,10 +1,13 @@
-import scala.util.Random
 
-class Customer (waiter: Waiter) {
+
+trait RandomNumberGenerator {
+  def generate(): Int
+}
+
+class Customer (waiter: Waiter, generator: Int) {
 //  val waiter = new Waiter
   def order(): Seq[Dish] = {
-    val numberOfOrders = Random.nextInt(5)
-    println(s"We have $numberOfOrders order(s)")
-    Seq.fill(numberOfOrders)(waiter.order())
+    println(s"We have $generator order(s)")
+    Seq.fill(generator)(waiter.order())
   }
 }

@@ -3,5 +3,8 @@ trait RestaurantServices {
   val supplier = new Supplier(kitchen)
   val chef     = new Chef(kitchen, supplier)
   val waiter   = new Waiter(chef)
-  val customer = new Customer(waiter)
+  val numberofOrders = new RandomNumberGenerator {
+    override def generate(): Int = util.Random.between(1,6)
+  }
+  val customer = new Customer(waiter, numberofOrders.generate())
 }
