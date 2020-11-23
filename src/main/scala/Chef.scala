@@ -8,8 +8,7 @@ class ChefImpl @Inject() (kitchen: Kitchen, supplier: Supplier) extends Chef{
   val carrotForDish    = kitchen.carrotSeq.take(5)
   val chickenLegForDish    = kitchen.chickenSeq.take(1)
   val riceForDish    = kitchen.riceSeq.take(20)
-//  val kitchen  = new Kitchen
-//  val supplier = new Supplier(kitchen)
+
   def cook(): Dish = {
     if (kitchen.carrotSeq.size < 5) supplier.supply[Carrot.type](10)
     if (kitchen.chickenSeq.size < 1) supplier.supply[ChickenLeg.type](2)
