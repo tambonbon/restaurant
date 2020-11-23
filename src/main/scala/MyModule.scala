@@ -1,8 +1,11 @@
 import com.google.inject.AbstractModule
-import net.codingwell.scalaguice.ScalaModule
 
-class MyModule extends AbstractModule with ScalaModule {
-  def configure(): Unit = {
-    bind[Chef].to[DefaultChef].in[Singleton]
+class MyModule extends AbstractModule {
+  override def configure(): Unit = {
+    binder.bind(classOf[Supplier]).to(classOf[SupplierImpl])
+    binder.bind(classOf[Chef]).to(classOf[ChefImpl])
+    binder.bind(classOf[Waiter]).to(classOf[WaiterImpl])
+    binder.bind(classOf[Customer]).to(classOf[CustomerImpl])
   }
 }
+

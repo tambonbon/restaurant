@@ -1,9 +1,18 @@
+import com.google.inject.Guice
 
-object Main extends App with RestaurantServices {
+object Main{
+  def main(args: Array[String]): Unit = {
+    val injector = Guice.createInjector(new MyModule)
+    val customer = injector.getInstance(classOf[Customer])
 
-//  val waiter   = new Waiter
-//  val chef     = Chef
+    if (customer.order() == null) {
+      throw new AssertionError()
+    } else {
+      println("it worked")
+    }
 
-  println(customer.order())
+    println(customer.order())
+
+  }
 
 }

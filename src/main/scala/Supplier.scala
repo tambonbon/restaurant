@@ -1,9 +1,13 @@
 import Ingredients.{Carrot, ChickenLeg, Rice}
+import javax.inject.Inject
 
 import scala.reflect.runtime.universe._
-class Supplier (kitchen: Kitchen) {
+trait Supplier {
+  def supply[A: TypeTag](amount: Int): Unit
+}
+class SupplierImpl @Inject() (kitchen: Kitchen) extends Supplier {
 //  val kitchen = new Kitchen
-  def supply[A: TypeTag](amount: Int) = typeOf[A] match {
+  def supply[A: TypeTag](amount: Int): Unit = typeOf[A] match {
     case x if x =:= typeOf[Carrot.type] => {
       val temp: Seq[Carrot.type] = Seq.fill(amount)(kitchen.carrot)
       kitchen.carrotSeq = kitchen.carrotSeq ++  temp
@@ -19,4 +23,7 @@ class Supplier (kitchen: Kitchen) {
   }
 }
 
+object Supplier {
+  def apply(kitchen: Kitchen): Supplier =  new SupplierImpl(kitchen)
+}
   //https://gist.github.com/jkpl/5279ee05cca8cc1ec452fc26ace5b68b

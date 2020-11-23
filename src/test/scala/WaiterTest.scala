@@ -12,7 +12,7 @@ class WaiterTest extends UnitTest ("Waiter") {
     val dish = Dish(Seq(carrot),Seq(chickenLeg),Seq(rice))
     when (chef.cook()).thenReturn(dish) // tell that puppet what it should do when cook is called
     // onwards, chef cook returns a dish (fake behaviour)
-    val waiter   = new Waiter(chef) // test the waiter works as expected (real waiter)
+    val waiter   = new WaiterImpl(chef) // test the waiter works as expected (real waiter)
     val order = waiter.order()
     order mustBe dish
     verify(chef, times(1)).cook()

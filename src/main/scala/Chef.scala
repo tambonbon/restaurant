@@ -1,9 +1,10 @@
 import Ingredients.{Carrot, ChickenLeg, Rice}
+import javax.inject.Inject
 
 trait Chef {
   def cook(): Dish
 }
-class DefaultChef (kitchen: Kitchen, supplier: Supplier) extends Chef{
+class ChefImpl @Inject() (kitchen: Kitchen, supplier: Supplier) extends Chef{
 //  val kitchen  = new Kitchen
 //  val supplier = new Supplier(kitchen)
   def cook(): Dish = {
@@ -25,5 +26,5 @@ class DefaultChef (kitchen: Kitchen, supplier: Supplier) extends Chef{
 }
 
 object Chef {
-  def apply(kitchen: Kitchen, supplier: Supplier): Chef = new DefaultChef(kitchen,supplier)
+  def apply(kitchen: Kitchen, supplier: Supplier): Chef = new ChefImpl(kitchen,supplier)
 }
