@@ -1,5 +1,5 @@
 
 class Waiter (chef: Chef) {
-//  val chef = new Chef
+//  val chef = Chef
   def order(): Dish = chef.cook()
 }

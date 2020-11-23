@@ -1,17 +1,23 @@
+import Ingredients.{Carrot, ChickenLeg, Rice}
+import org.mockito.Mockito.{times, verify, when}
+import org.mockito.MockitoSugar.mock
+
 class WaiterTest extends UnitTest ("Waiter") {
   it must "give order to chef to cook" in {
-    val kitchen  = new Kitchen
-    kitchen.carrotSeq.size mustBe 10
-    kitchen.chickenSeq.size mustBe 2
-    kitchen.riceSeq.size mustBe 50
-    val supplier = new Supplier(kitchen)
-    val chef     = new Chef(kitchen, supplier)
-    val waiter   = new Waiter(chef)
-//    waiter.order() mustBe chef.cook()
-    waiter.order()
-    kitchen.carrotSeq.size mustBe 5
-    kitchen.chickenSeq.size mustBe 1
-    kitchen.riceSeq.size mustBe 30
+    val carrot     = Carrot
+    val chickenLeg = ChickenLeg
+    val rice       = Rice
+
+    val chef     = mock[Chef] // not real chefcreate a puppet,
+    val dish = Dish(Seq(carrot),Seq(chickenLeg),Seq(rice))
+    when (chef.cook()).thenReturn(dish) // tell that puppet what it should do when cook is called
+    // onwards, chef cook returns a dish (fake behaviour)
+    val waiter   = new Waiter(chef) // test the waiter works as expected (real waiter)
+    val order = waiter.order()
+    order mustBe dish
+    verify(chef, times(1)).cook()
+    // verify that chef cooks only 1 dish --> important
+    // DI --><-- Testing
   }
 
 
