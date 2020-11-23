@@ -1,8 +1,6 @@
 import Ingredients.{Carrot, ChickenLeg, Rice}
-trait KitchenTrait {
 
-}
-class Kitchen extends KitchenTrait {
+class Kitchen  {
   val carrot     = Carrot
   val chickenLeg = ChickenLeg
   val rice       = Rice
@@ -11,8 +9,4 @@ class Kitchen extends KitchenTrait {
   var chickenSeq: Seq[ChickenLeg.type] = Seq.fill(2)(chickenLeg)
   var riceSeq   : Seq[Rice.type]       = Seq.fill(50)(rice) // I reduce a bit of rice for the sake of brevity
 
-}
-
-object KitchenTrait {
-  def apply(): KitchenTrait = new Kitchen
 }

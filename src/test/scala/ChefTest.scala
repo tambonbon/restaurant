@@ -4,17 +4,17 @@ class ChefTest extends UnitTest ("Chef"){
   it must "cook Carrot" in {
     val kitchen  = new Kitchen
     val supplier = new SupplierImpl(kitchen)
-    val chef     = Chef(kitchen, supplier)
+    val chef     = new ChefImpl(kitchen, supplier)
     kitchen.carrotSeq.size mustBe 10 //for referencing initial value
     val dish = chef.cook()
-    dish.carrot.size mustBe 5
+    chef.carrotForDish.size mustBe 5
     kitchen.carrotSeq.size mustBe 5
   }
 
   it must "cook Chicken" in {
     val kitchen  = new Kitchen
     val supplier = new SupplierImpl(kitchen)
-    val chef     = Chef(kitchen, supplier)
+    val chef     = new ChefImpl(kitchen, supplier)
     kitchen.chickenSeq.size mustBe 2
     chef.cook()
     kitchen.chickenSeq.size mustBe 1
@@ -22,10 +22,10 @@ class ChefTest extends UnitTest ("Chef"){
   it must "cook Rice" in {
     val kitchen  = new Kitchen
     val supplier = new SupplierImpl(kitchen)
-    val chef     = Chef(kitchen, supplier)
+    val chef     = new ChefImpl(kitchen, supplier)
     kitchen.riceSeq.size mustBe 50
     val dish = chef.cook()
-    dish.rice.size mustBe 20
+    chef.riceForDish.size mustBe 20
     kitchen.riceSeq.size mustBe 30
   }
 

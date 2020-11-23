@@ -1,11 +1,12 @@
 import javax.inject.Inject
 
+import scala.concurrent.Future
+
 trait Waiter {
-  def order(): Dish
+  def order(): Future[Dish]
 }
 class WaiterImpl @Inject() (chef: Chef) extends Waiter {
-//  val chef = Chef
-  def order(): Dish = chef.cook()
+  def order(): Future[Dish] = chef.cook()
 }
 object Waiter {
   def apply(chef: Chef): Waiter = new WaiterImpl(chef)
