@@ -5,6 +5,9 @@ trait Chef {
   def cook(): Dish
 }
 class ChefImpl @Inject() (kitchen: Kitchen, supplier: Supplier) extends Chef{
+  val carrotForDish    = kitchen.carrotSeq.take(5)
+  val chickenLegForDish    = kitchen.chickenSeq.take(1)
+  val riceForDish    = kitchen.riceSeq.take(20)
 //  val kitchen  = new Kitchen
 //  val supplier = new Supplier(kitchen)
   def cook(): Dish = {
@@ -17,9 +20,7 @@ class ChefImpl @Inject() (kitchen: Kitchen, supplier: Supplier) extends Chef{
     kitchen.chickenSeq = kitchen.chickenSeq.drop(1)
     kitchen.riceSeq    = kitchen.riceSeq.drop(20)
 //    Dish(kitchen.carrotSeq,kitchen.chickenSeq, kitchen.riceSeq)
-    val carrotForDish    = kitchen.carrotSeq.take(5)
-    val chickenLegForDish    = kitchen.chickenSeq.take(1)
-    val riceForDish    = kitchen.riceSeq.take(20)
+
     Dish(carrotForDish, chickenLegForDish, riceForDish)
 
   }

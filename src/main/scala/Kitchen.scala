@@ -1,6 +1,8 @@
 import Ingredients.{Carrot, ChickenLeg, Rice}
+trait KitchenTrait {
 
-class Kitchen {
+}
+class Kitchen extends KitchenTrait {
   val carrot     = Carrot
   val chickenLeg = ChickenLeg
   val rice       = Rice
@@ -11,3 +13,6 @@ class Kitchen {
 
 }
 
+object KitchenTrait {
+  def apply(): KitchenTrait = new Kitchen
+}

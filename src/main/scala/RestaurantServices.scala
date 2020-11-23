@@ -6,5 +6,5 @@ trait RestaurantServices {
   val numberofOrders = new RandomNumberGenerator {
     override def generate(): Int = util.Random.between(1,6)
   }
-  val customer = new CustomerImpl(waiter, numberofOrders.generate())
+//  val customer = new CustomerImpl(waiter, numberofOrders.generate())
 }
