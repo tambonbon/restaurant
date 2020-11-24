@@ -1,7 +1,9 @@
 import com.google.inject.Guice
 
-object Main{
+object Main {
   def main(args: Array[String]): Unit = {
+
+//    println(customer.order())
     val injector = Guice.createInjector(new MyModule)
     val customer = injector.getInstance(classOf[CustomerImpl])
 
@@ -11,7 +13,7 @@ object Main{
       println("it worked")
     }
 
-//    println(customer.order())
+    println(customer.order())
 
   }
 

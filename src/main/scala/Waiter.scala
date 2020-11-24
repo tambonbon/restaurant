@@ -1,4 +1,6 @@
-import javax.inject.Inject
+//import javax.inject.Inject/
+
+import com.google.inject.Inject
 
 import scala.concurrent.Future
 
