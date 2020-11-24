@@ -27,13 +27,14 @@ class CustomerTest extends UnitTest ("Customer"){
     when(cook).thenReturn(dish.head) // stubbing
 
     val waiter     = mock[Waiter] // we mock a puppet waiter
+    when(waiter.order()).thenReturn(dish.head)
     val random     = new RandomNumberGeneratorImpl {
       override def generate(): Int = 1
     }
 
     val customer = new CustomerImpl(waiter, random)
     val orders = customer.order()
-    orders mustBe dish.head
+    orders mustBe dish
   }
 
 }
