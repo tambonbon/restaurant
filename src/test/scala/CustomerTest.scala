@@ -1,27 +1,34 @@
+import Ingredients.{Carrot, ChickenLeg, Rice}
+import org.mockito.Mockito.{atLeastOnce, verify}
+import org.mockito.MockitoSugar.{mock, when}
 
+import scala.concurrent.Future
 
 class CustomerTest extends UnitTest ("Customer"){
   it must "order something" in {
-    val kitchen  = new Kitchen
-    val supplier = new SupplierImpl(kitchen)
-    val chef     = Chef(kitchen, supplier)
-    val waiter   = new WaiterImpl(chef)
-    val random   = new RandomNumberGenerator {
-      override def generate(): Int = util.Random.between(1,6)
-    }
-    val customer = new CustomerImpl(waiter, random)
-    customer.order().size must be >  0
+    val carrot     = Carrot
+    val chickenLeg = ChickenLeg
+    val rice       = Rice
+
+    val customer = mock[Customer] // should I create a 'puppet' customer to test him?
+    val dish = Seq(Future.successful(Dish(Seq(carrot),Seq(chickenLeg),Seq(rice))))
+    val orders = customer.order()
+    when(orders).thenReturn(dish) // stubbing
+    verify(orders, atLeastOnce())
   }
-  it must "order something that is a Dish" in {
-    val kitchen  = new Kitchen
-    val supplier = new SupplierImpl(kitchen)
-    val chef     = new ChefImpl(kitchen, supplier)
-    val waiter   = new WaiterImpl(chef)
-    val random   = new RandomNumberGenerator {
-      override def generate(): Int = 1
-    }
-    val customer = new CustomerImpl(waiter, random)
+  it must "order something for a chef to cook" in {
+    val carrot     = Carrot
+    val chickenLeg = ChickenLeg
+    val rice       = Rice
+    val dish = Seq(Future.successful(Dish(Seq(carrot),Seq(chickenLeg),Seq(rice))))
+
+    val chef     = mock[Chef]
     val cook = chef.cook()
-    customer.order().head mustBe Dish(chef.carrotForDish,(chef.chickenLegForDish),(chef.riceForDish))
+    when(cook).thenReturn(dish.head) // stubbing
+    val customer = mock[Customer] // should I create a 'puppet'?
+    val orders = customer.order()
+    when(orders).thenReturn(dish) // stubbing
+    verify(orders).equals(cook)
   }
+
 }

@@ -22,5 +22,4 @@ class WaiterTest extends UnitTest ("Waiter") {
     // DI --><-- Testing
   }
 
-
 }
