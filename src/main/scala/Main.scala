@@ -6,15 +6,12 @@ object Main {
 //    println(customer.order())
     val injector = Guice.createInjector(new MyModule)
     val customer = injector.getInstance(classOf[CustomerImpl])
-
-    if (customer.order() == null) {
+    val order    = customer.order()
+    println(order)
+    if (order == null) {
       throw new AssertionError()
     } else {
       println("it worked")
     }
-
-    println(customer.order())
-
   }
-
 }

@@ -4,9 +4,9 @@ class MyModule extends AbstractModule {
   override def configure(): Unit = {
 //    binder.bind(classOf[KitchenTrait]).to(classOf[Kitchen])
 //    binder.bind(classOf[Supplier]).to(classOf[SupplierImpl])
-    binder.bind(classOf[Supplier]).to(classOf[SupplierCarrot])
-    binder.bind(classOf[Supplier]).to(classOf[SupplierChickenLeg])
-    binder.bind(classOf[Supplier]).to(classOf[SupplierRice])
+//    binder.bind(classOf[Supplier]).to(classOf[SupplierCarrot])
+//    binder.bind(classOf[Supplier]).to(classOf[SupplierChickenLeg])
+//    binder.bind(classOf[Supplier]).to(classOf[SupplierRice])
     binder.bind(classOf[Chef]).to(classOf[ChefImpl])
     binder.bind(classOf[Waiter]).to(classOf[WaiterImpl])
     binder.bind(classOf[Customer]).to(classOf[CustomerImpl])
