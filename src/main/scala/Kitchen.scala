@@ -1,6 +1,6 @@
 import Ingredients.{Carrot, ChickenLeg, Rice}
 
-class Kitchen {
+class Kitchen  {
   val carrot     = Carrot
   val chickenLeg = ChickenLeg
   val rice       = Rice

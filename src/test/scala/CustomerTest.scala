@@ -1,27 +1,40 @@
+import Ingredients.{Carrot, ChickenLeg, Rice}
+import org.mockito.MockitoSugar.{mock, when}
 
+import scala.concurrent.Future
 
 class CustomerTest extends UnitTest ("Customer"){
-  it must "order something" in {
-    val kitchen  = new Kitchen
-    val supplier = new SupplierImpl(kitchen)
-    val chef     = Chef(kitchen, supplier)
-    val waiter   = new WaiterImpl(chef)
-    val random   = new RandomNumberGenerator {
-      override def generate(): Int = util.Random.between(1,6)
-    }
-    val customer = new CustomerImpl(waiter, random)
-    customer.order().size must be >  0
+  it must "order something for the waiter" in {
+    val carrot     = Carrot
+    val chickenLeg = ChickenLeg
+    val rice       = Rice
+    val waiter     = mock[Waiter] // we mock a puppet waiter
+    val random     = new RandomNumberGeneratorImpl
+    val customer =  new CustomerImpl(waiter, random)
+//    val dish = Seq(Future.successful(Dish(Seq(carrot),Seq(chickenLeg),Seq(rice))))
+    customer.order().size must be > 0
+//    when(orders).thenReturn(dish) // stubbing
+//    verify(orders, atLeastOnce())
   }
-  it must "order something that is a Dish" in {
-    val kitchen  = new Kitchen
-    val supplier = new SupplierImpl(kitchen)
-    val chef     = new ChefImpl(kitchen, supplier)
-    val waiter   = new WaiterImpl(chef)
-    val random   = new RandomNumberGenerator {
+  it must "order something for a chef to cook" in {
+    val carrot     = Carrot
+    val chickenLeg = ChickenLeg
+    val rice       = Rice
+    val dish = Seq(Future.successful(Dish(Seq(carrot),Seq(chickenLeg),Seq(rice))))
+
+    val chef     = mock[Chef]
+    val cook = chef.cook()
+    when(cook).thenReturn(dish.head) // stubbing
+
+    val waiter     = mock[Waiter] // we mock a puppet waiter
+    when(waiter.order()).thenReturn(dish.head)
+    val random     = new RandomNumberGeneratorImpl {
       override def generate(): Int = 1
     }
+
     val customer = new CustomerImpl(waiter, random)
-    val cook = chef.cook()
-    customer.order().head mustBe Dish(chef.carrotForDish,(chef.chickenLegForDish),(chef.riceForDish))
+    val orders = customer.order()
+    orders mustBe dish
   }
+
 }
